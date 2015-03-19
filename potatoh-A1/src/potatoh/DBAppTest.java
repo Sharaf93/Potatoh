@@ -25,9 +25,6 @@ public class DBAppTest {
 
 		app.createTable("Employee", htblCols, null, "ID");
 
-		// TA will check content of properties file in data dir for table
-		// creation
-
 		System.out.println("testcase: testTableCreate ");
 
 		System.in.read();
@@ -60,8 +57,6 @@ public class DBAppTest {
 		htblVals.put("Insured", "True");
 
 		app.insertIntoTable("Employee", htblVals);
-
-		// TA will check content of data dir for table insertion of 1 record
 
 		System.out.println("testcase: testTableCreateInsert1");
 		System.in.read();
@@ -100,8 +95,6 @@ public class DBAppTest {
 			app.insertIntoTable("Employee", htblVals);
 		}
 
-		// TA will check content of data dir for table insertion of 100 records
-
 		System.out.println("testcase: testTableCreateInsert100");
 		System.in.read();
 
@@ -138,9 +131,6 @@ public class DBAppTest {
 
 			app.insertIntoTable("Employee", htblVals);
 		}
-
-		// TA will check content of data dir for table insertion of 450
-		// records... resulting in 2 files...
 		System.out.println("testcase: testTableCreateInsert450");
 
 		System.in.read();
@@ -183,9 +173,6 @@ public class DBAppTest {
 		htblConditions.put("Insured", "True");
 
 		app.deleteFromTable("Employee", htblConditions, "");
-
-		// TA will check content of data dir for table insertion of 250 records
-		// followed by deletion of 125
 		System.out.println("testcase: testTableCreateInsert250Delete125");
 
 		System.in.read();
@@ -245,9 +232,6 @@ public class DBAppTest {
 			obj = iterator.next();
 			nCounter2++;
 		}
-
-		// TA will check content of data dir for table insertion of 250 records
-		// followed by deletion of 125
 		System.out
 				.println("testcase: testTableCreateInsert250SelectDelete125Select");
 		System.out
@@ -292,8 +276,6 @@ public class DBAppTest {
 		}
 
 		app.createIndex("Employee", "Age");
-
-		// TA will check content of data dir for table insertion of 75 records
 		System.out.println("testcase: testTableCreateInsert75BuildIndex");
 
 		System.in.read();
@@ -622,27 +604,27 @@ public class DBAppTest {
 
 	public void runTests() {
 		try {
-			// testTableCreate();
-			//
-			// testTableCreateInsert1();
-			//
-			// testTableCreateInsert100();
-			//
-			// testTableCreateInsert450();
-			//
-			// testTableCreateInsert250Delete125();
-			//
-			// testTableCreateInsert250SelectDelete125Select();
-			//
-			// testTableCreateInsert75BuildIndex();
-			//
-			// testTableCreateInsert2000SelectBuildIndexSelect();
-			//
-			// testTableCreateInsert250SelectWith2ConditionsAndedEmptyResultSet();
-			//
-			// testTableCreateInsert250SelectWith2ConditionsAndedNotEmptyResultSet();
+			 testTableCreate();
+//			
+//			 testTableCreateInsert1();
+//			
+//			 testTableCreateInsert100();
+//			
+//			 testTableCreateInsert450();
+//			
+//			 testTableCreateInsert250Delete125();
+//			
+//			 testTableCreateInsert250SelectDelete125Select();
+//			
+//			 testTableCreateInsert75BuildIndex();
+//			
+//			 testTableCreateInsert2000SelectBuildIndexSelect();
+//			
+//			 testTableCreateInsert250SelectWith2ConditionsAndedEmptyResultSet();
+//			
+//			 testTableCreateInsert250SelectWith2ConditionsAndedNotEmptyResultSet();
 
-			testTableCreateInsert250SelectWith2ConditionsOredDifferentConditions();
+//			testTableCreateInsert250SelectWith2ConditionsOredDifferentConditions();
 
 		} catch (Exception exp) {
 			exp.printStackTrace();
