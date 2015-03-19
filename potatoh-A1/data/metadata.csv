@@ -1,0 +1,8 @@
+Employee,Name,Java.lang.String,False,False,null
+Employee,ID,Java.lang.Integer,True,True,null
+Employee,Insured,Java.lang.Boolean,False,False,null
+Employee,Salary,Java.lang.Float,False,False,null
+Employee,Department,Java.lang.String,False,False,null
+Department,Name,java.lang.String,False,False,null
+Department,ID,java.lang.Integer,True,True,null
+Department,Location,java.lang.String,False,False,null

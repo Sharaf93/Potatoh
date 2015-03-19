@@ -1,0 +1,37 @@
+Notes on DB Assignment 1:
+
+**DBApp**
+-First diffining dbProperties, and pageCache. 
+pageCache: is our hashtable that takes an integer and an arraylist of DBRow. 
+DBRow: its a class that contains the rows of the columns. "to be discussed later"
+
+-The constructor of the DBApp execute the method init(); that intialize the database.
+
+-Method, init(): intialze the properties, then load the file DBApp.properties from the folder config.
+Load the status file in the DBStatus class. 
+Load the metadata file in the DBMetadata class. 
+
+-Method, creatTable(..): adds a new table in DBMetadata.
+
+-Method, createIndex(..): adds a new index in DBIndex.
+Check the DBPageData class if there are no page data for the table that the index should be inserted in.
+Last line is setting the index to true after creating it.
+
+-Method, insertIntoTable(..): First it checks the record number then determine the current record in the file, determine whether needs a new page or not.
+Write the line, and uses a helper method  "makeTupleAndIndex(..)" to make it concise.
+
+-Method, deleteFromTable(..): Uses the helper method "delete_select_fromtable(..)",to be discussed later.
+
+-Method, saveAll(..): Saves the databases status and indexes.
+
+
+-DBIndex : uses the opensource library of Btree: to determine which page/record to use
+-method, indexPage: create index for the page
+-method, makeTupleAndIndex: Helper method to make one row from dictionary values
+-mthod, delete_select_fromTable: A function to check if strOperator is AND or OR, also if its not index, must scan through all page.
+-method, select_deleteFromPageWithIndexAND :If the select or delete is INDEX with an AND
+-method, select_deleteFromPageWithIndexOR: if the select or delete is with INDEX and OR
+-method, markDelete: Add a tomb stone that it was deleted
+-method, select_deleteFromTableFullScan:If its not an index, then must scan through all pages
+-method, select_deleteFromPageAND:Scan through all pages with an AND
+-method, select_deleteFromPageOR: Scan through all pages with an OR
