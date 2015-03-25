@@ -604,7 +604,9 @@ public class DBAppTest {
 
 	public void runTests() {
 		try {
-			 testTableCreate();
+			System.out.println("Please Uncomment any of the tests in the runTests() " +
+					"method, then you can check the results in the data folder.");
+//			 testTableCreate();
 //			
 //			 testTableCreateInsert1();
 //			
