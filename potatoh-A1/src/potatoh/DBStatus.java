@@ -12,12 +12,13 @@ import java.util.Hashtable;
 
 public class DBStatus implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	private Hashtable<String, DBPageData> pagesDictionary = 
 			new Hashtable<String, DBPageData>();
 	private Hashtable<String, DBIndex> indexesDictionary = new Hashtable<String, DBIndex>();
 	public static DBStatus DB_STATUS = new DBStatus();
-	static String statusFileName = "data/DbStatus.properties";
+	transient static String statusFileName = "data/DbStatus.properties";
+	transient static String fileName = "data/DbStatus.ser";
 	
 	public DBPageData getCurrentPageData(String tableName) {
 		if(! pagesDictionary.containsKey(tableName)){
@@ -87,48 +88,107 @@ public class DBStatus implements Serializable {
 		return metaFile.exists();
 	}
 
+//	public static void save() {
+//		ObjectOutputStream oos = null;
+//		try {
+//			
+//			File statusFile = new File(statusFileName);
+//			if (! statusFile.exists()) {
+//				boolean success = statusFile.createNewFile();
+//				System.out.println("Status file was created with success: " + success);
+//			}
+//			FileOutputStream fos = new FileOutputStream(statusFileName);
+//			oos = new ObjectOutputStream(fos);
+//			oos.writeObject(DB_STATUS);
+//		} catch (IOException iox) {
+//			iox.printStackTrace();
+//		} finally {
+//			try {
+//				oos.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}		
+//	}
+	
 	public static void save() {
-		ObjectOutputStream oos = null;
-		try {
-			
-			File statusFile = new File(statusFileName);
-			if (! statusFile.exists()) {
-				boolean success = statusFile.createNewFile();
-				System.out.println("Status file was created with success: " + success);
-			}
-			FileOutputStream fos = new FileOutputStream(statusFileName);
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(DB_STATUS);
-		} catch (IOException iox) {
-			iox.printStackTrace();
-		} finally {
-			try {
-				oos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}		
+		try{
+	        FileOutputStream fileOut = new FileOutputStream(fileName);
+	        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	        out.writeObject(DB_STATUS);
+	        out.close();
+	        fileOut.close();
+	        System.out.println("Serialized data is saved in /data/DbStatus.ser");
+	    } catch(IOException i){
+	    	i.printStackTrace();
+	    }
 	}
 
+//	public static void load() {
+//		ObjectInputStream ois = null;
+//		if (! hasFile()) {
+//			System.out.println("Cannot load. File was not created for: " + statusFileName);	
+//			return;
+//		}
+//		try {
+//			FileInputStream fis = new FileInputStream(statusFileName);
+//			ois = new ObjectInputStream(fis);
+//			DB_STATUS = (DBStatus)ois.readObject();
+//		} catch (Exception iox) {
+//			iox.printStackTrace();
+//		} finally {
+//			try {
+//				ois.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+	
 	public static void load() {
-		ObjectInputStream ois = null;
-		if (! hasFile()) {
-			System.out.println("Cannot load. File was not created for: " + statusFileName);	
-			return;
-		}
-		try {
-			FileInputStream fis = new FileInputStream(statusFileName);
-			ois = new ObjectInputStream(fis);
-			DB_STATUS = (DBStatus)ois.readObject();
-		} catch (Exception iox) {
-			iox.printStackTrace();
-		} finally {
-			try {
-				ois.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		try{
+			FileInputStream fileIn = new FileInputStream(fileName);
+	        ObjectInputStream in = new ObjectInputStream(fileIn);
+	        DB_STATUS = (DBStatus) in.readObject();
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i)
+	      {
+	         i.printStackTrace();
+	         return;
+	      }catch(ClassNotFoundException c)
+	      {
+	         System.out.println("class not found");
+	         c.printStackTrace();
+	         return;
+	      }
+	      System.out.println("Deserialized class...");
+	      System.out.println("Pages: " + DB_STATUS.pagesDictionary);
+	      System.out.println("Index: " + DB_STATUS.indexesDictionary);
+	}
+
+	public Hashtable<String, DBPageData> getPagesDictionary() {
+		return pagesDictionary;
+	}
+
+	public void setPagesDictionary(Hashtable<String, DBPageData> pagesDictionary) {
+		this.pagesDictionary = pagesDictionary;
+	}
+
+	public Hashtable<String, DBIndex> getIndexesDictionary() {
+		return indexesDictionary;
+	}
+
+	public void setIndexesDictionary(Hashtable<String, DBIndex> indexesDictionary) {
+		this.indexesDictionary = indexesDictionary;
+	}
+
+	public static DBStatus getDB_STATUS() {
+		return DB_STATUS;
+	}
+
+	public static void setDB_STATUS(DBStatus dB_STATUS) {
+		DB_STATUS = dB_STATUS;
 	}
 
 }
